@@ -240,8 +240,8 @@ The Streamlit app also visualizes the top SHAP contributors using a horizontal b
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
-cd aml-risk-report-generator
+git clone https://github.com/indersingh17188/aml-compliance-reporter
+cd aml-compliance-reporter
 ```
 
 ### 2. Create a virtual environment
@@ -323,13 +323,6 @@ This project demonstrates:
 - Streamlit deployment,
 - analyst-style report generation.
 
----
-
-## 💼 Portfolio Talking Point
-
-A concise way to describe the project:
-
-> I built an explainable AML risk scoring demo using XGBoost, SHAP and Streamlit. The model predicts suspicious transaction risk, uses AML-inspired engineered features, handles extreme class imbalance, and explains each prediction using SHAP. I also added threshold-based risk levels and an analyst-style downloadable report. The next version extends the system with RAG-based AML guidance retrieval and LLM-generated reports.
 
 ---
 
