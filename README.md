@@ -2,33 +2,37 @@
 
 ![Explainable AML Risk Report Generator](screenshots/hero_banner.png)
 
-# 🏦 Explainable AML Risk Report Generator
+# 🏦 Explainable AML Compliance Reporter
 
-**AI-powered Anti-Money Laundering risk assessment using XGBoost, SHAP and Streamlit**
+**Explainable AML risk scoring with XGBoost, SHAP, FAISS RAG, and Streamlit**
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)]()
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)]()
 [![XGBoost](https://img.shields.io/badge/Model-XGBoost-orange.svg)]()
 [![SHAP](https://img.shields.io/badge/Explainability-SHAP-green.svg)]()
+[![FAISS](https://img.shields.io/badge/RAG-FAISS-purple.svg)]()
+[![FastEmbed](https://img.shields.io/badge/Embeddings-FastEmbed-lightgrey.svg)]()
 [![Streamlit](https://img.shields.io/badge/App-Streamlit-red.svg)]()
-[![Status](https://img.shields.io/badge/Status-v1%20Working-success.svg)]()
+[![Status](https://img.shields.io/badge/Status-v2%20RAG%20Working-success.svg)]()
 
 </div>
 
 ---
 
-## 🚀 Demo Overview
+## 🚀 Overview
 
-This project is a lightweight end-to-end machine learning demo for **Anti-Money Laundering (AML) transaction risk scoring**.
+This project is an end-to-end AI engineering demo for **Anti-Money Laundering (AML) transaction risk assessment**.
 
-The app allows a user to select a transaction and generate:
+It combines:
 
-- 🧠 AML risk probability using an XGBoost classifier
-- 🟢🟡🔴 Low / Medium / High risk category
-- 🔍 SHAP-based local prediction explanation
-- 📊 visual risk-driver chart
-- 📄 downloadable analyst-style AML report
+- 🤖 **XGBoost** for suspicious transaction risk prediction
+- 🛠️ **AML-inspired feature engineering**
+- 🔍 **SHAP** for explainable model decisions
+- 📚 **FAISS-based RAG** over a curated AML knowledge base
+- 📄 **RAG-enriched analyst-style reports**
+- 🖥️ **Streamlit** for an interactive dashboard
+- 🧪 reusable positive/negative testing samples for demo and validation
 
-> ⚠️ This is a portfolio/demo project and not a production AML compliance system.
+> ⚠️ This is a synthetic-data portfolio project and not a production AML compliance system.
 
 ---
 
@@ -42,46 +46,48 @@ The app allows a user to select a transaction and generate:
 
 ![SHAP Explanation](screenshots/shap_explanation.png)
 
-### 📄 Analyst Report Preview
-
-![Analyst Report Preview](screenshots/report_preview.png)
-
----
-
-## ✨ Key Features
-
-- ✅ XGBoost classifier for suspicious transaction risk prediction
-- ✅ AML-inspired feature engineering
-- ✅ class imbalance handling using `scale_pos_weight`
-- ✅ ROC-AUC and PR-AUC evaluation
-- ✅ threshold analysis for operational risk scoring
-- ✅ SHAP explanations for individual predictions
-- ✅ human-readable explanation mapping
-- ✅ Streamlit dashboard
-- ✅ downloadable analyst-style report
-- 🔜 RAG-based AML guidance retrieval
-- 🔜 LLM-generated analyst report
-- 🔜 Docker and Hugging Face Spaces deployment
-
----
-
-## ⚙️ System Architecture
+### ⚙️ System Architecture
 
 ![System Architecture](screenshots/architecture.png)
 
+---
+
+## ✨ What the App Does
+
+A user selects a transaction sample and clicks **Predict AML Risk**.
+
+The app then:
+
+1. 🧾 Loads the selected transaction
+2. 🤖 Predicts AML risk using XGBoost
+3. 🎯 Converts probability into Low / Medium / High risk
+4. 🔍 Explains the prediction using SHAP
+5. 📚 Builds an automatic RAG query from SHAP factors and transaction attributes
+6. 🔎 Retrieves relevant AML guidance from a local knowledge base using FAISS
+7. 📄 Generates a RAG-enriched analyst report
+8. ⬇️ Allows report download as text
+
+---
+
+## 🧠 Architecture
+
 ```text
-Transaction
-    ↓
+Selected Transaction
+        ↓
 Feature Engineering
-    ↓
-XGBoost Classifier
-    ↓
-Risk Score + Thresholding
-    ↓
-SHAP Explainability
-    ↓
-Analyst-Friendly Report
-    ↓
+        ↓
+XGBoost Risk Model
+        ↓
+Risk Score + Thresholds
+        ↓
+SHAP Explanation
+        ↓
+Automatic Retrieval Query
+        ↓
+FAISS RAG over AML Knowledge Base
+        ↓
+RAG-Enriched Analyst Report
+        ↓
 Streamlit Dashboard
 ```
 
@@ -90,50 +96,74 @@ Streamlit Dashboard
 ## 📁 Project Structure
 
 ```text
-aml-risk-report-generator/
+aml-compliance-reporter/
 │
 ├── app.py
 ├── train_model.py
 ├── train_model_v2.py
+├── create_testing_samples.py
 ├── test_explainability.py
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
 │
+├── utils/
+│   ├── __init__.py
+│   ├── feature_engineering.py
+│   └── explainability.py
+│
+├── rag/
+│   ├── __init__.py
+│   ├── knowledge_loader.py
+│   ├── chunker.py
+│   ├── embedding_model.py
+│   ├── build_index.py
+│   ├── retriever.py
+│   ├── report_generator.py
+│   └── test_retriever.py
+│
+├── knowledge_base/
+│   ├── 01_structuring.md
+│   ├── 02_layering.md
+│   ├── 03_integration.md
+│   ├── ...
+│   └── 20_reporting_guidelines.md
+│
 ├── data/
 │   ├── .gitkeep
-│   ├── sample_app_inputs_v2.csv      # ignored in Git
-│   └── [dataset CSV file]            # ignored in Git
+│   ├── HI-Small_Trans.csv                         # ignored
+│   ├── sample_app_inputs_v2.csv                   # ignored
+│   └── testing_samples/                           # ignored
 │
 ├── models/
 │   ├── .gitkeep
-│   ├── xgb_aml_pipeline_v2.pkl       # ignored in Git
-│   └── feature_info_v2.pkl           # ignored in Git
+│   ├── xgb_aml_pipeline_v2.pkl                    # ignored
+│   └── feature_info_v2.pkl                        # ignored
 │
-├── screenshots/
-│   ├── hero_banner.png
-│   ├── dashboard_preview.png
-│   ├── shap_explanation.png
-│   ├── report_preview.png
-│   └── architecture.png
+├── rag_index/
+│   ├── aml_knowledge.faiss                        # ignored
+│   └── chunks_metadata.joblib                     # ignored
 │
-└── utils/
-    ├── __init__.py
-    ├── feature_engineering.py
-    └── explainability.py
+└── screenshots/
+    ├── hero_banner.png
+    ├── dashboard_preview.png
+    ├── shap_explanation.png
+    ├── report_preview.png
+    └── architecture.png
 ```
 
 ---
 
 ## 💾 Dataset
 
-This project uses a synthetic AML transaction dataset from **IBM AML-Data**.
+This project uses a synthetic AML transaction dataset based on IBM AML-Data.
 
-The dataset includes transaction-level information such as:
+The dataset contains transaction-level fields such as:
 
 - timestamp
 - originating bank
 - receiving bank
+- account identifiers
 - amount paid
 - amount received
 - payment currency
@@ -147,18 +177,20 @@ The supervised target column is:
 Is_Laundering
 ```
 
+Account identifiers and raw timestamps are excluded from the final model feature set to reduce memorization and leakage.
+
 ---
 
 ## 🛠️ Feature Engineering
 
-The improved model uses AML-inspired engineered features rather than relying only on raw transaction fields.
+The improved model uses AML-inspired engineered features.
 
 ### ⏰ Time Features
 
 - transaction hour
 - transaction day
 - transaction month
-- transaction day of week
+- day of week
 - weekend flag
 - night transaction flag
 
@@ -177,10 +209,6 @@ The improved model uses AML-inspired engineered features rather than relying onl
 - same-bank transfer flag
 - cross-bank transfer flag
 
-### 🔒 Leakage Reduction
-
-Account identifiers and raw timestamps are excluded from the final model feature set to reduce memorization and improve generalization.
-
 ---
 
 ## 📊 Model Performance
@@ -198,13 +226,13 @@ The engineered model improved PR-AUC from:
 0.0480 → 0.2273
 ```
 
-This is approximately a **4.7× improvement** in PR-AUC, which is more meaningful than ROC-AUC for highly imbalanced AML data.
+This is approximately a **4.7× improvement**, which is more meaningful than ROC-AUC for highly imbalanced AML data.
 
 ---
 
-## 🎯 Threshold Analysis
+## 🎯 Threshold Strategy
 
-The default `0.50` threshold created too many false positives. Therefore, multiple thresholds were evaluated:
+The default `0.50` threshold produced too many false positives. Therefore, the model was evaluated across multiple thresholds.
 
 ```text
 Threshold    Precision    Recall       F1           Flagged
@@ -217,7 +245,7 @@ Threshold    Precision    Recall       F1           Flagged
 0.99         0.9312       0.1440       0.2494          160
 ```
 
-The Streamlit demo uses these risk bands:
+The Streamlit app uses:
 
 ```text
 Low Risk    : score < 0.70
@@ -231,76 +259,188 @@ The high-risk threshold is intentionally strict to produce fewer but more credib
 
 ## 🔍 Explainability with SHAP
 
-SHAP is used to explain individual transaction predictions.
+SHAP is used to explain individual predictions.
 
 For each selected transaction, the app displays:
 
-- top contributing features,
-- SHAP impact value,
-- whether each feature increases or decreases risk,
-- human-readable explanation.
+- top contributing features
+- SHAP impact values
+- whether each feature increases or decreases risk
+- human-readable explanations
 
-Example explanation:
+Example:
 
 ```text
-Payment format: ACH decreases risk.
-Large received amount pattern decreases risk.
-Amount received decreases risk.
+Cross-currency transaction increases risk.
+Night-time transaction increases risk.
+Large paid amount pattern increases risk.
 ```
 
-This helps translate model output into a format that is easier for analysts and non-technical stakeholders to interpret.
+This makes the prediction easier to interpret for analysts and non-technical stakeholders.
+
+---
+
+## 📚 RAG Knowledge Base
+
+The RAG layer uses a curated local AML knowledge base with 20 markdown documents.
+
+Topics include:
+
+- structuring and smurfing
+- layering
+- integration
+- cross-border transfers
+- shell companies
+- high-risk jurisdictions
+- sanctions screening
+- PEP transactions
+- cash-intensive businesses
+- round-tripping
+- trade-based money laundering
+- unusual transaction timing
+- currency conversion patterns
+- large-value transactions
+- multiple accounts
+- beneficial ownership
+- payment methods
+- enhanced due diligence
+- AML red flags
+- analyst reporting guidelines
+
+Each document contains:
+
+- overview
+- why it matters
+- typical indicators
+- analyst considerations
+- example scenario
+- suggested action
+- related topics
+
+---
+
+## 🔎 FAISS RAG Pipeline
+
+The RAG module follows this flow:
+
+```text
+AML markdown documents
+        ↓
+Document chunking
+        ↓
+FastEmbed sentence embeddings
+        ↓
+FAISS vector index
+        ↓
+Top-k similarity retrieval
+        ↓
+RAG-enriched analyst report
+```
+
+The app automatically builds a retrieval query using:
+
+- risk level
+- SHAP explanation reasons
+- transaction attributes such as cross-currency, cross-bank, night transaction, and amount difference
+
+This means the user does not need to manually ask a question. The system retrieves relevant AML guidance automatically.
+
+---
+
+## 🧪 Testing Samples
+
+The project includes a utility script to generate reusable testing samples from the labelled dataset.
+
+```bash
+python create_testing_samples.py
+```
+
+This creates local testing files such as:
+
+```text
+data/testing_samples/
+├── positive_high_risk_with_metadata.csv
+├── positive_random_with_metadata.csv
+├── negative_low_risk_with_metadata.csv
+├── negative_high_score_false_positive_candidates_with_metadata.csv
+├── negative_random_with_metadata.csv
+└── mixed_testing_samples_with_metadata.csv
+```
+
+The Streamlit sidebar can use these groups to demo:
+
+- labelled laundering examples
+- normal low-risk examples
+- false-positive candidates
+- mixed testing samples
+
+These files are ignored by Git because they are generated from local data.
 
 ---
 
 ## ▶️ How to Run Locally
 
-### 1. Clone the repository
+### 1. Create conda environment
 
 ```bash
-git clone https://github.com/indersingh17188/aml-compliance-reporter
-cd aml-risk-report-generator
+conda create -n aml python=3.11 -y
+conda activate aml
 ```
 
-### 2. Create a virtual environment
+### 2. Install dependencies
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
+Recommended:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If XGBoost fails on macOS due to OpenMP, run:
+If using conda for FAISS:
 
 ```bash
-brew install libomp
-pip uninstall xgboost -y
-pip install xgboost
+conda install -c conda-forge faiss-cpu -y
+pip install -r requirements.txt
 ```
 
-### 4. Train the model
+### 3. Train the XGBoost model
 
 ```bash
 python train_model_v2.py --data_path data/HI-Small_Trans.csv
 ```
 
-For a faster test run:
+For a quick test:
 
 ```bash
 python train_model_v2.py --data_path data/HI-Small_Trans.csv --sample_size 50000
 ```
 
-### 5. Test explainability
+### 4. Build the RAG index
 
 ```bash
-python test_explainability.py
+python -m rag.build_index
 ```
 
-### 6. Run the Streamlit app
+This creates:
+
+```text
+rag_index/
+├── aml_knowledge.faiss
+└── chunks_metadata.joblib
+```
+
+### 5. Test RAG retrieval
+
+```bash
+python -m rag.test_retriever
+```
+
+### 6. Create testing samples
+
+```bash
+python create_testing_samples.py
+```
+
+### 7. Run Streamlit
 
 ```bash
 streamlit run app.py
@@ -310,35 +450,38 @@ streamlit run app.py
 
 ## 📚 Requirements
 
+Core dependencies:
+
 ```text
-pandas
 numpy
+pandas
 scikit-learn
 xgboost
-joblib
 shap
 matplotlib
 streamlit
+joblib
+faiss-cpu
+fastembed
 ```
 
 ---
 
-## 🧭 Roadmap
+## 🧭 Version Roadmap
 
 | Version | Status | Description |
 |---|---|---|
-| v1.0 | ✅ Done | XGBoost + SHAP + Streamlit dashboard |
-| v1.1 | 🔜 Next | Improved UI and richer SHAP plots |
-| v2.0 | 🔜 Planned | RAG-based AML guidance retrieval |
-| v2.1 | 🔜 Planned | Analyst report enriched with retrieved guidance |
-| v3.0 | 🔜 Planned | Lightweight open-source LLM report generation |
-| v4.0 | 🔜 Planned | Docker + Hugging Face Spaces deployment |
+| v1.0 | ✅ Done | XGBoost + SHAP + Streamlit |
+| v2.0 | ✅ Done | FAISS RAG + AML knowledge base + RAG report |
+| v2.1 | 🔜 Next | Improved UI and report formatting |
+| v3.0 | 🔜 Planned | Lightweight LLM report rewriting |
+| v4.0 | 🔜 Planned | Docker and Hugging Face Spaces deployment |
 
 ---
 
 ## 💼 Portfolio Talking Point
 
-> I built an explainable AML risk scoring demo using XGBoost, SHAP and Streamlit. The model predicts suspicious transaction risk, uses AML-inspired engineered features, handles extreme class imbalance, and explains each prediction using SHAP. I also added threshold-based risk levels and an analyst-style downloadable report. The next version extends the system with RAG-based AML guidance retrieval and LLM-generated reports.
+> I built an explainable AML compliance reporter using XGBoost, SHAP, FAISS RAG, and Streamlit. The system predicts suspicious transaction risk, explains the prediction using SHAP, retrieves relevant AML guidance from a curated local knowledge base, and generates an analyst-style report. I also created reusable positive and negative test samples to demonstrate model behaviour under different scenarios.
 
 ---
 
@@ -347,6 +490,8 @@ streamlit
 ```text
 xgboost
 shap
+faiss
+fastembed
 streamlit
 machine-learning
 financial-ai
@@ -363,4 +508,4 @@ llm
 
 ## ⚠️ Disclaimer
 
-This project is for educational and portfolio demonstration purposes only. It is not intended for real-world AML decision-making, regulatory compliance, or production transaction monitoring.
+This project is for educational and portfolio demonstration purposes only. It uses synthetic data and is not intended for real-world AML decision-making, regulatory compliance, or production transaction monitoring.
