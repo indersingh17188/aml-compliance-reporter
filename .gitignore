@@ -49,3 +49,5 @@ models/*.json
 tmp/
 temp/
 
+# RAG index artifacts
+rag_index/
