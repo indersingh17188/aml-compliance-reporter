@@ -16,6 +16,12 @@
 
 ---
 
+## 📸 Demo Preview
+
+![SHAP Explanation](screenshots/shap_explanation.png)
+
+---
+
 ## 🚀 Demo Overview
 
 This project is a lightweight end-to-end machine learning demo for **Anti-Money Laundering (AML) transaction risk scoring**.
@@ -258,7 +264,7 @@ This helps translate model output into a format that is easier for analysts and 
 
 ```bash
 git clone https://github.com/indersingh17188/aml-compliance-reporter
-cd aml-risk-report-generator
+cd aml-compliance-reporter
 ```
 
 ### 2. Create a virtual environment
