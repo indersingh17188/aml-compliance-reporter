@@ -15,6 +15,12 @@ This project demonstrates how a suspicious transaction monitoring prototype can 
 
 ---
 
+## 📸 Demo Preview
+
+![SHAP Explanation](screenshots/shap_explanation.png)
+
+---
+
 ## 🚀 Demo Overview
 
 The application allows a user to select a sample transaction and generate:
