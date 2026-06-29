@@ -51,3 +51,5 @@ temp/
 
 # RAG index artifacts
 rag_index/
+
+data/**/*.csv
